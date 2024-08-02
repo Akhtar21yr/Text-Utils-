@@ -3,7 +3,7 @@ FROM python:3.9
 
 WORKDIR /app/backend
 
-s
+
 COPY requirements.txt /app/backend/
 RUN pip install --no-cache-dir -r requirements.txt
 
