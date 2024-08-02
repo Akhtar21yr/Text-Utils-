@@ -13,14 +13,14 @@ pipeline {
         }
         stage('build & test') {
             steps {
-                sh "docker build -t text-app:latest ."
+                sh "docker build -t text-app:v1 ."
             }
         }
         stage('push to docker hub') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerCred', passwordVariable: 'dPass', usernameVariable: 'dUser')]) {
                     sh 'echo $dPass | docker login -u $dUser --password-stdin'
-                    sh 'docker tag text-app:latest $dUser/text-app:latest'
+                    sh 'docker tag text-app:latest $dUser/text-app:v1'
                     sh 'docker push $dUser/text-app:latest'
                 }
             }
@@ -28,7 +28,7 @@ pipeline {
         stage('deploy') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerCred', passwordVariable: 'dPass', usernameVariable: 'dUser')]) {
-                    sh 'docker pull $dUser/text-app:latest'
+                    sh 'docker pull $dUser/text-app:v1'
                 }
                 sh "docker compose down && docker compose up -d "
 
