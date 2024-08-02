@@ -1,6 +1,6 @@
 version : "3.3"
 services :
     web :
-      image : akhtar22yrr/text-app:v1
+      image : akhtar22yrr/text-app:latest
       ports :
         - "8000:8000"
