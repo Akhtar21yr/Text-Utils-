@@ -20,7 +20,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerCred', passwordVariable: 'dPass', usernameVariable: 'dUser')]) {
                     sh 'echo $dPass | docker login -u $dUser --password-stdin'
-                    sh 'docker tag text-app:v1 $dUser/text-app:v1'
+                    sh 'docker tag text-app:v1 $dUser/text-app:latest'
                     sh 'docker push $dUser/text-app:latest'
                 }
             }
